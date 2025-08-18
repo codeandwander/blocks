@@ -1,0 +1,27 @@
+<!-- Rotating tabs css -->
+.tab_plus,
+.tab_content_hide {
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none; /* disable interactions when hidden */
+}
+
+.tab_plus.active,
+.tab_content_hide.active {
+  opacity: 1;
+  max-height: 1000px; /* large enough to show full content */
+  pointer-events: auto;
+}
+
+.tab_inner-content {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tab_inner-content.active {
+  opacity: 1;
+  pointer-events: auto;
+}
