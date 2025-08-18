@@ -1,4 +1,11 @@
-const swiperElements = document.querySelectorAll('[blx-swiper="swiper"]');
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeSwiper);
+} else {
+  initializeSwiper();
+}
+
+function initializeSwiper() {
+  const swiperElements = document.querySelectorAll('[blx-swiper="swiper"]');
   swiperElements.forEach((swiperElement) => {
     const swiper = new Swiper(swiperElement.querySelector('.swiper'), {
       loop: swiperElement.getAttribute('blx-swiper-loop') === 'true',
@@ -42,6 +49,25 @@ const swiperElements = document.querySelectorAll('[blx-swiper="swiper"]');
       },
       thumbs: swiperElement.getAttribute('blx-swiper-thumbs') ? {
         swiper: document.querySelector(`.${swiperElement.getAttribute('blx-swiper-thumbs')}`)
-      } : undefined,  // Use undefined if thumbs is not provided
+      } : undefined,
+    });
+    
+    // Clean up accessibility issues
+    const wrapper = swiperElement.querySelector('.swiper-wrapper');
+    if (wrapper) {
+      wrapper.removeAttribute('aria-live');
+      wrapper.removeAttribute('role');
+    }
+    
+    // Improve slide labels
+    const slides = swiperElement.querySelectorAll('.swiper-slide');
+    slides.forEach((slide, index) => {
+      const heading = slide.querySelector('h2');
+      if (heading) {
+        slide.setAttribute('aria-label', 
+          `Slide ${index + 1} of ${slides.length}: ${heading.textContent.trim()}`
+        );
+      }
     });
   });
+}
