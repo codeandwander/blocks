@@ -1,0 +1,39 @@
+<!-- Accordion Tabs css -->
+  [blx-tab-panel] {
+    height: 0; /* Default collapsed height */
+    overflow: hidden; /* Hide overflow content */
+    position: relative; /* Remove absolute positioning on mobile */
+    opacity: 0;
+    pointer-events: none;
+    transition: height 0.3s ease, opacity 0.3s ease; /* Smooth height and opacity transition */
+  }
+  [blx-tab-panel].active {
+    height: auto; /* Expand to content height */
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (min-width: 992px) {
+    [blx-tab] {
+      flex: 0 0 auto;
+    }
+    [blx-tab-link].active {
+      background: var(--colours--black);
+      color: white;
+    }
+
+    [blx-tab-panel] {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease; /* Smooth fade for panels */
+    }
+
+    [blx-tab-panel].active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 1; /* Ensure active panel is on top */
+    }
+  }
